@@ -4,6 +4,7 @@ defmodule Pento.Accounts.User do
 
   schema "users" do
     field :email, :string
+    field :username, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :current_password, :string, virtual: true, redact: true
@@ -37,8 +38,9 @@ defmodule Pento.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :username, :password])
     |> validate_email(opts)
+    |> validate_username(opts)
     |> validate_password(opts)
   end
 
@@ -59,6 +61,12 @@ defmodule Pento.Accounts.User do
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
     # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
     |> maybe_hash_password(opts)
+  end
+
+  defp validate_username(changeset, _opts) do
+    changeset
+    |> validate_required([:username])
+    |> unique_constraint(:username)
   end
 
   defp maybe_hash_password(changeset, opts) do
