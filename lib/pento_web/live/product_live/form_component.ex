@@ -19,10 +19,16 @@ defmodule PentoWeb.ProductLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:description]} type="text" label="Description" />
-        <.input field={@form[:unit_price]} type="number" label="Unit price" step="any" />
-        <.input field={@form[:sku]} type="number" label="Sku" />
+        <.input field={@form[:name]} type="text" label="Name" phx-debounce="blur" />
+        <.input field={@form[:description]} type="text" label="Description" phx-debounce="blur" />
+        <.input
+          field={@form[:unit_price]}
+          type="number"
+          label="Unit price"
+          step="any"
+          phx-debounce="blur"
+        />
+        <.input field={@form[:sku]} type="number" label="Sku" phx-debounce="blur" />
         <div phx-drop-target={@uploads.image.ref}>
           <.label>Image</.label>
           <.live_file_input upload={@uploads.image} />

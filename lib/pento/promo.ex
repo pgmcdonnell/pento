@@ -5,7 +5,8 @@ defmodule Pento.Promo do
     Recipient.changeset(recipient, attrs)
   end
 
-  def send_promo(_recipient, _attrs) do
+  def send_promo(recipient, _attrs) do
+    Pento.Accounts.UserNotifier.deliver_promotion_email(recipient, "Promotion")
     {:ok, %Recipient{}}
   end
 end

@@ -76,4 +76,18 @@ defmodule Pento.Accounts.UserNotifier do
     ==============================
     """)
   end
+
+  def deliver_promotion_email(recipient, subject) do
+    deliver(recipient.email, subject, """
+
+     ==============================
+
+    Hi #{recipient.first_name},
+
+    You have been sent a promotion for 10% off by your friend.
+
+    ==============================
+
+    """)
+  end
 end
