@@ -15,6 +15,10 @@
   <:item title="Sku">{@product.sku}</:item>
 </.list>
 
+<div>
+  <img src={@product.image_upload} alt="Product image" />
+</div>
+
 <.back navigate={~p"/products"}>Back to products</.back>
 
 <.modal
