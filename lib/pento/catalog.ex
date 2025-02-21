@@ -106,4 +106,9 @@ defmodule Pento.Catalog do
     product
     |> Product.reduce_price(%{unit_price: product.unit_price - reduction_amount})
   end
+
+  def list_products_with_user_rating(user) do
+    Product.Query.with_user_ratings(user)
+    |> Repo.all()
+  end
 end
